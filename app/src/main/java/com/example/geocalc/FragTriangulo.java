@@ -85,7 +85,7 @@ public class FragTriangulo extends Fragment {
                     double area_tri = (base_tri * altura_tri)/2;
 
                     AlertDialog.Builder janela = new AlertDialog.Builder(getActivity());
-                    janela.setTitle("Resultado");
+                    janela.setTitle("Área do triangulo");
                     String saida = String.format("O resultado da área do triangulo é: %.3f", area_tri);
                     janela.setMessage(saida);
                     janela.show();

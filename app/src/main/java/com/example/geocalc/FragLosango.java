@@ -84,7 +84,7 @@ public class FragLosango extends Fragment {
                     double area_losango = (diag_maior * diag_menor)/2;
 
                     AlertDialog.Builder janela = new AlertDialog.Builder(getActivity());
-                    janela.setTitle("Resultado");
+                    janela.setTitle("Área do Losango");
                     String saida = String.format("O resultado da área do losango é: %.3f", area_losango);
                     janela.setMessage(saida);
                     janela.show();

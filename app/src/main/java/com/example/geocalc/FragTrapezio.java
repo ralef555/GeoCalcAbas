@@ -92,7 +92,7 @@ public class FragTrapezio extends Fragment {
                     double area_trap = ((base_maior + base_menor) * altura_trap) / 2;
 
                     AlertDialog.Builder janela = new AlertDialog.Builder(getActivity());
-                    janela.setTitle("Resultado");
+                    janela.setTitle("Área do trapezio");
                     String saida = String.format("O resultado da área do trapezio é: %.3f", area_trap);
                     janela.setMessage(saida);
                     janela.show();
