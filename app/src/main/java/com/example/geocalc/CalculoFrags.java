@@ -2,19 +2,20 @@ package com.example.geocalc;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
 public class CalculoFrags extends AppCompatActivity {
 
-    private Button btn_losango;
-    private Button btn_triangulo;
-    private Button btn_trapezio;
-    private FragLosango fragLosango;
-    private FragTriangulo fragTriangulo;
-    private FragTrapezio fragTrapezio;
+    private TabLayout tabLayout;
+    private ViewPager2 viewPager;
 
 
     @Override
@@ -22,46 +23,27 @@ public class CalculoFrags extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculo_frags);
 
-        btn_losango = findViewById(R.id.btn_losango);
-        btn_triangulo = findViewById(R.id.btn_triangulo);
-        btn_trapezio = findViewById(R.id.btn_trapezio);
+        tabLayout = findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager);
+        configurarTabLayout();
 
-        fragTriangulo = new FragTriangulo();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_calc, fragTriangulo);
-        fragmentTransaction.commit();
-
-        btn_losango.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragLosango = new FragLosango();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame_calc, fragLosango);
-                fragmentTransaction.commit();
-            }
-        });
-
-        btn_triangulo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragTriangulo = new FragTriangulo();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame_calc, fragTriangulo);
-                fragmentTransaction.commit();
-            }
-        });
-
-        btn_trapezio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragTrapezio = new FragTrapezio();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame_calc, fragTrapezio);
-                fragmentTransaction.commit();
-            }
-        });
 
 
 
     }
+
+    private void configurarTabLayout(){
+        ViewPagerAdapter adaptador = new ViewPagerAdapter(this);
+        viewPager.setAdapter(adaptador);
+        adaptador.adicionaFragmento(new FragLosango(), "Losango");
+        adaptador.adicionaFragmento(new FragTrapezio(), "Trapézio");
+        adaptador.adicionaFragmento(new FragTriangulo(), "Triangulo");
+        viewPager.setOffscreenPageLimit(adaptador.getItemCount());
+        TabLayoutMediator tabMediator = new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+           tab.setText(adaptador.getTitle(position));
+        });
+        tabMediator.attach();
+
+    }
+
 }
